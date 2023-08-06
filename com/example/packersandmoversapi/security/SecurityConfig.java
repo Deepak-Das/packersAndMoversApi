@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authReq-> authReq
                                 .requestMatchers(PUBLIC_URL).permitAll()
-
+                                .requestMatchers(HttpMethod.POST,"/api/v1/records").permitAll()
                                 .anyRequest()
                                 .authenticated()
                         ).exceptionHandling(ex->ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))

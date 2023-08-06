@@ -33,8 +33,9 @@ public class RecordController {
     }
 
     @PostMapping
-    public ClientRecordDTO createRecord(@RequestBody ClientRecordDTO recordDTO) {
-        return recordService.createRecord(recordDTO);
+    public ResponseEntity<ClientRecordDTO> createRecord(@RequestBody ClientRecordDTO recordDTO) {
+        ClientRecordDTO record = recordService.createRecord(recordDTO);
+        return new ResponseEntity<>(record,HttpStatus.OK);
     }
 
     @PutMapping("/{recordId}")
