@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +50,7 @@ public class ClientRecordServiceImpl implements ClientRecordService {
             record.setFullName(recordDTO.getFullName());
             record.setMessage(recordDTO.getMessage());
             record.setPhoneNo(recordDTO.getPhoneNo());
-            record.setDate(recordDTO.getDate());
+            record.setDate(Date.valueOf(recordDTO.getDate()));
             ClientRecord updatedRecord = recordRepository.save(record);
             return modelMapper.map(updatedRecord,ClientRecordDTO.class);
 
@@ -61,6 +62,12 @@ public class ClientRecordServiceImpl implements ClientRecordService {
         ApiResponse apiResponse = new ApiResponse();
         return ApiResponse.builder().message("Deleted Successfully").error_status("NO ERROR").build();
 
+    }
+
+    @Override
+    public List<ClientRecordDTO> getRecordsByDate(Date date) {
+        List<ClientRecord> records = recordRepository.findAllByDate(date);
+        return records.stream().map(record -> modelMapper.map(record,ClientRecordDTO.class)).collect(Collectors.toList());
     }
 
 

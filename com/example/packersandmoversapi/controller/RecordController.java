@@ -4,11 +4,13 @@ import com.example.packersandmoversapi.model.ApiResponse;
 import com.example.packersandmoversapi.model.ClientRecordDTO;
 import com.example.packersandmoversapi.service.ClientRecordService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -48,5 +50,11 @@ public class RecordController {
         ApiResponse apiResponse = recordService.deleteRecord(recordId);
         return new ResponseEntity<>(apiResponse.getMessage(), HttpStatus.OK);
     }
+
+    @GetMapping("/by-date")
+    public List<ClientRecordDTO> getRecordsByDate(@RequestParam  Date date) {
+        return recordService.getRecordsByDate(date);
+    }
+
 }
 

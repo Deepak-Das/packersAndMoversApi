@@ -20,7 +20,7 @@ public class ClientRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long recordId;
 
-    private Long phoneNo;
+    private String phoneNo;
     private String fullName;
     private String message;
     private Date date;
